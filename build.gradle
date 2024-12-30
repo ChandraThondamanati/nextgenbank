@@ -1,0 +1,3 @@
+defaultTasks = ['clean', 'build']
+
+group = 'com.nextgen.sourcing'
