@@ -1,0 +1,35 @@
+plugins {
+    id 'org.springframework.boot' version '3.1.0' // Use the appropriate version
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+}
+
+group = 'com.nextgen-sourcing'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web' // For a web application
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // For JPA support
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // For Thymeleaf templates (optional)
+    implementation 'org.springframework.boot:spring-boot-starter-security' // For Spring Security (optional)
+    implementation 'org.springframework.boot:spring-boot-starter-test' // For testing
+
+    // Add other dependencies as needed
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0' // Example for testing
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.0' // Example for testing
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+jar{
+    enabled = true
+}
+
+bootRun {
+    jvmArgs = ["-Xms512m","-Xmx512m","-DJASYPT_ENCRYPTOR_PASSWORD=Fake"]
+    environment 'VALIDATION_ID',"DummyToken"
+}
