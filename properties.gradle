@@ -1,3 +1,5 @@
 project.ext {
     javaVersion = JavaVersion.VERSION_11
+    springBootVersion = '2.7.0'
+    gradleGitPropertiesVersion = '2.2.2'
 }

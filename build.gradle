@@ -1,3 +1,65 @@
 defaultTasks = ['clean', 'build']
 
 group = 'com.nextgen.sourcing'
+
+
+buildscript {
+    apply from: 'properties.gradle'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        //classpath("gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gradleGitPropertiesVersion}")
+    }
+
+
+}
+
+apply plugin: 'base'
+
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'maven-publish'
+    apply plugin: 'jacoco'
+
+    repositories {
+        mavenCentral()  // Define where dependencies should be fetched from
+    }
+    project.dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testCompileOnly 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+        testImplementation "org.springframework.boot:spring-boot-starter-test"
+    }
+
+    jacoco{
+        toolVersion = "0.8.5"
+    }
+    jacocoTestReport {
+        dependsOn test  // Ensure that tests are run before generating the report
+
+        reports {
+            xml.required = true  // Enable XML report
+            //html.enabled = true  // Enable HTML report
+            csv.required = false  // Optionally disable CSV report
+        }
+    }
+    test.finalizedBy jacocoTestReport
+
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+
+}
