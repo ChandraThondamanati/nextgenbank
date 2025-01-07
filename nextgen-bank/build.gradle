@@ -10,6 +10,7 @@ group = 'com.nextgen-sourcing'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web' // For a web application
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 }
 
 tasks.named('test') {
